@@ -1,5 +1,30 @@
 import java.awt.*;
 
+public class Saab95 extends Car {
+    public boolean turboOn;
+
+    public Saab95(Color color, Double enginePower) {
+        this.nrDoors = 2;
+        this.color = Color.red;
+        this.enginePower = 125;
+        this.turboOn = false;
+        this.modelName = "Saab95";
+        stopEngine();
+    }
+    public void setTurboOn(){turboOn = true;}
+
+    public void setTurboOff(){turboOn = false;}
+
+    @Override private double speedFactor(){
+        double turbo = 1;
+        if(turboOn) turbo = 1.3;
+        return enginePower * 0.01 * turbo;
+    }
+}
+
+
+
+/*
 public class Saab95{
 
     public boolean turboOn;
@@ -77,3 +102,4 @@ public class Saab95{
         decrementSpeed(amount);
     }
 }
+ */
