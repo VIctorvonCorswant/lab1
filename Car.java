@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Car extends Vehicle {
+public abstract class Car extends Vehicle {
     public int nrDoors;
     public String modelName;
     public boolean engineOn = false;
@@ -23,4 +23,5 @@ public class Car extends Vehicle {
         else {System.out.println("It's either through the floor or  (Brake is out of range.)");}
     }
 
+    protected abstract double speedFactor();
 }

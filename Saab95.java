@@ -15,7 +15,8 @@ public class Saab95 extends Car {
 
     public void setTurboOff(){turboOn = false;}
 
-    @Override private double speedFactor(){
+    @Override
+    protected double speedFactor(){
         double turbo = 1;
         if(turboOn) turbo = 1.3;
         return enginePower * 0.01 * turbo;
@@ -43,30 +44,30 @@ public class Saab95{
         stopEngine();
     }
     
-    public int getNrDoors(){
+    # public int getNrDoors(){
         return nrDoors;
     }
-    public double getEnginePower(){
+    # public double getEnginePower(){
         return enginePower;
     }
 
-    public double getCurrentSpeed(){
+    # public double getCurrentSpeed(){
         return currentSpeed;
     }
 
-    public Color getColor(){
+    # public Color getColor(){
         return color;
     }
 
-    public void setColor(Color clr){
+    # public void setColor(Color clr){
 	    color = clr;
     }
 
-    public void startEngine(){
+    # public void startEngine(){
 	    currentSpeed = 0.1;
     }
 
-    public void stopEngine(){
+    # public void stopEngine(){
 	    currentSpeed = 0;
     }
 
@@ -84,21 +85,21 @@ public class Saab95{
         return enginePower * 0.01 * turbo;
     }
 
-    public void incrementSpeed(double amount){
+    # public void incrementSpeed(double amount){
         currentSpeed = getCurrentSpeed() + speedFactor() * amount;
     }
 
-    public void decrementSpeed(double amount){
+    # public void decrementSpeed(double amount){
         currentSpeed = getCurrentSpeed() - speedFactor() * amount;
     }
     
     // TODO fix this method according to lab pm
-    public void gas(double amount){
+    # public void gas(double amount){
         incrementSpeed(amount);
     }
 
     // TODO fix this method according to lab pm
-    public void brake(double amount){
+    # public void brake(double amount){
         decrementSpeed(amount);
     }
 }
