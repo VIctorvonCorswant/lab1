@@ -1,5 +1,27 @@
 import java.awt.*;
 
+public class Volvo240 extends Car implements Movable{
+
+    public final static double trimFactor = 1.25;
+    public Point coordinates;
+    public double direction;
+
+    public Volvo240(Color color, Double enginePower){
+        this.nrDoors = 4;
+        this.color = color; //color.black
+        this.enginePower = enginePower; // 100
+        this.modelName = "Volvo240";
+        this.coordinates = new Point(0,0);
+        this.direction = 0;
+        stopEngine();
+    }
+
+    @Override
+    protected double speedFactor() {return enginePower * 0.01 * trimFactor;}
+}
+
+
+/*
 public class Volvo240{
 
     public final static double trimFactor = 1.25;
@@ -66,3 +88,5 @@ public class Volvo240{
         decrementSpeed(amount);
     }
 }
+
+*/

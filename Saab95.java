@@ -1,7 +1,8 @@
 import java.awt.*;
 
-public class Saab95 extends Car {
+public class Saab95 extends Car implements Movable {
     public boolean turboOn;
+
 
     public Saab95(Color color, Double enginePower) {
         this.nrDoors = 2;
@@ -9,6 +10,8 @@ public class Saab95 extends Car {
         this.enginePower = 125;
         this.turboOn = false;
         this.modelName = "Saab95";
+        this.coordinates = new Point(0, 0);
+        this.direction = 0;
         stopEngine();
     }
     public void setTurboOn(){turboOn = true;}
@@ -71,15 +74,15 @@ public class Saab95{
 	    currentSpeed = 0;
     }
 
-    public void setTurboOn(){
+    # public void setTurboOn(){
 	    turboOn = true;
     }
 
-    public void setTurboOff(){
+    # public void setTurboOff(){
 	    turboOn = false;
     }
     
-    public double speedFactor(){
+    # public double speedFactor(){
         double turbo = 1;
         if(turboOn) turbo = 1.3;
         return enginePower * 0.01 * turbo;
