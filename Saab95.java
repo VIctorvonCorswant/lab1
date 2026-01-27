@@ -3,11 +3,10 @@ import java.awt.*;
 public class Saab95 extends Car implements Movable {
     public boolean turboOn;
 
-
     public Saab95(Color color, Double enginePower) {
         this.nrDoors = 2;
-        this.color = Color.red;
-        this.enginePower = 125;
+        this.color = color; //Color.red;
+        this.enginePower = enginePower; //125;
         this.turboOn = false;
         this.modelName = "Saab95";
         this.coordinates = new Point(0, 0);
@@ -24,6 +23,7 @@ public class Saab95 extends Car implements Movable {
         if(turboOn) turbo = 1.3;
         return enginePower * 0.01 * turbo;
     }
+
 }
 
 

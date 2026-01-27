@@ -27,4 +27,42 @@ class Volvo240Test {
         volvo.setColor(Color.BLUE);
         assertEquals(Color.BLUE, volvo.getColor());
     }
+
+    @Test
+    public void getEnginePower() {
+        assertEquals(120, volvo.getEnginePower());
+    }
+
+    @Test
+    public void getModelName() {
+        assertEquals("Volvo240", volvo.getModelName());
+    }
+
+    @Test
+    public void getEningeOn() {
+        //test if engine can power on
+        assertFalse(volvo.getEngineOn());
+        volvo.engineOn = true;
+        assertTrue(volvo.getEngineOn());
+
+        volvo.engineOn = false;
+        assertFalse(volvo.getEngineOn());
+    }
+
+    @Test
+    public void moveVehicle() {
+        volvo.engineOn = true;
+        volvo.gas(1);
+        assertEquals(1, volvo.coordinates.getX());
+        assertEquals(0, volvo.coordinates.getY());
+
+        volvo.turnLeft();
+        volvo.turnLeft();
+        volvo.turnLeft();
+        volvo.gas(1);
+
+        assertEquals(1, volvo.coordinates.getX());
+        assertEquals(2, volvo.coordinates.getY());
+
+    }
 }

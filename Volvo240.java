@@ -3,8 +3,6 @@ import java.awt.*;
 public class Volvo240 extends Car implements Movable{
 
     public final static double trimFactor = 1.25;
-    public Point coordinates;
-    public double direction;
 
     public Volvo240(Color color, Double enginePower){
         this.nrDoors = 4;
