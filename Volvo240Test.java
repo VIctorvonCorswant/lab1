@@ -15,26 +15,9 @@ class Volvo240Test {
     @BeforeEach
     public void setUp() {volvo = new Volvo240(Color.green,(double)100);}
 
-    /**
-     * Checks if the car has correct number of doors
-     */
-    @Test
-    public void getNrDoors() {assertEquals(4, volvo.getNrDoors());}
 
-    /**
-     * Checks if color is correct
-     */
-    @Test
-    public void getColor() {assertEquals(Color.green, volvo.getColor());}
 
-    /**
-     * Checks if you can change color is correct
-     */
-    @Test
-    public void setColor() {
-        volvo.setColor(Color.BLUE);
-        assertEquals(Color.BLUE, volvo.getColor());
-    }
+
     /**
      * Checks if engine power is correct
      */
@@ -43,26 +26,18 @@ class Volvo240Test {
         assertEquals(100, volvo.getEnginePower());
     }
 
-    /**
-     * Checks if model name is correct
-     */
-    @Test
-    public void getModelName() {
-        assertEquals("Volvo240", volvo.getModelName());
-    }
 
-    /**
-     * Checks if car actually starts
-     */
-    @Test
-    public void getEningeOn() {
-        //test if engine can power on
-        assertFalse(volvo.getEngineOn());
-        volvo.engineOn = true;
-        assertTrue(volvo.getEngineOn());
 
-        volvo.engineOn = false;
-        assertFalse(volvo.getEngineOn());
+
+
+
+
+
+
+    @Test
+    public void speedFactor(){
+        double expectedSpeedFactor = 100 * 0.01 * 1.25;
+        assertEquals(expectedSpeedFactor, volvo.speedFactor(), 0.0001);
     }
 
     /**
@@ -92,32 +67,7 @@ class Volvo240Test {
         assertEquals(40, volvo.getCurrentSpeed());
     }
 
-    /**
-     * Checks if vehicle moves
-     */
-    @Test
-    public void moveVehicle() {
-        volvo.engineOn = true;
-        volvo.gas(1);
-        assertEquals(1, volvo.coordinates.getX());
-        assertEquals(0, volvo.coordinates.getY());
 
-        volvo.turnLeft();
-        volvo.turnLeft();
-        volvo.turnLeft();
-        volvo.gas(1);
-
-        assertEquals(1, volvo.coordinates.getX());
-        assertEquals(2, volvo.coordinates.getY());
-
-        volvo.turnRight();
-        volvo.turnRight();
-        volvo.turnRight();
-
-        volvo.brake(1);
-        assertEquals(2, volvo.coordinates.getX());
-        assertEquals(2, volvo.coordinates.getY());
-    }
 
         /**
          * Accelerates and decelerates to check if

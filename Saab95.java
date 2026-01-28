@@ -1,8 +1,10 @@
 import java.awt.*;
 
-public class Saab95 extends Car implements Movable {
-    public boolean turboOn;
+public final class Saab95 extends Car implements Movable {
+    /** Initiate variables */
+    private boolean turboOn;
 
+    /** Constructor for Saab95 */
     public Saab95(Color color, Double enginePower) {
         this.nrDoors = 2;
         this.color = color; //Color.red;
@@ -13,6 +15,8 @@ public class Saab95 extends Car implements Movable {
         this.direction = 0;
         stopEngine();
     }
+    /* Specific methods for SAAB95 */
+        /** turbo get/set methods for saab */
     public boolean getTurboOn(){return turboOn;}
 
     public void setTurboOn(){turboOn = true;}
