@@ -21,16 +21,21 @@ public abstract class Car extends Vehicle {
 
     public void gas(double amount){
         if (amount >= 0 && amount <= 1) {
-            incrementSpeed(amount);
-            this.move();
+            if(this.getCurrentSpeed() < this.getEnginePower()) {
+                incrementSpeed(amount);
+                this.move();
+            }
         }
         else {System.out.println("Can't push down pedal because it's already on the floor (Throttle is out of range.)");}
     }
 
     public void brake(double amount){
         if (amount >= 0 && amount <= 1){
-            decrementSpeed(amount);
-            this.move();
+            if(this.getCurrentSpeed() > 0) {
+                decrementSpeed(amount);
+                this.move();
+
+            }
         }
         else {System.out.println("It's either through the floor or  (Brake is out of range.)");}
     }
