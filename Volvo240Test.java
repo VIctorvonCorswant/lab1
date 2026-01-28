@@ -10,9 +10,7 @@ class Volvo240Test {
     private Volvo240 volvo;
 
     @BeforeEach
-    public void setUp() {
-        volvo = new Volvo240(Color.green,(double)120);
-    }
+    public void setUp() {volvo = new Volvo240(Color.green,(double)100);}
 
     @Test
     public void getNrDoors() {assertEquals(4, volvo.getNrDoors());}
@@ -28,7 +26,7 @@ class Volvo240Test {
 
     @Test
     public void getEnginePower() {
-        assertEquals(120, volvo.getEnginePower());
+        assertEquals(100, volvo.getEnginePower());
     }
 
     @Test
@@ -58,6 +56,17 @@ class Volvo240Test {
     }
 
     @Test
+    public void brakeOutOfBounds() {
+        volvo.engineOn = true;
+        volvo.currentSpeed = 40;
+
+        volvo.brake(1.5);
+        assertEquals(40, volvo.getCurrentSpeed());
+        volvo.brake(-0.5);
+        assertEquals(40, volvo.getCurrentSpeed());
+    }
+
+    @Test
     public void moveVehicle() {
         volvo.engineOn = true;
         volvo.gas(1);
@@ -72,5 +81,12 @@ class Volvo240Test {
         assertEquals(1, volvo.coordinates.getX());
         assertEquals(2, volvo.coordinates.getY());
 
+        volvo.turnRight();
+        volvo.turnRight();
+        volvo.turnRight();
+
+        volvo.brake(1);
+        assertEquals(2, volvo.coordinates.getX());
+        assertEquals(2, volvo.coordinates.getY());
     }
 }

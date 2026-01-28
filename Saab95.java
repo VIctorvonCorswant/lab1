@@ -13,6 +13,8 @@ public class Saab95 extends Car implements Movable {
         this.direction = 0;
         stopEngine();
     }
+    public boolean getTurboOn(){return turboOn;}
+
     public void setTurboOn(){turboOn = true;}
 
     public void setTurboOff(){turboOn = false;}
