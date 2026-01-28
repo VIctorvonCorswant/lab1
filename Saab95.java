@@ -23,6 +23,7 @@ public final class Saab95 extends Car implements Movable {
 
     public void setTurboOff(){turboOn = false;}
 
+    /** Overrides the default function for speedFactor with SAAB95's own implementation */
     @Override
     protected double speedFactor(){
         double turbo = 1;
