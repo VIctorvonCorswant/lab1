@@ -1,7 +1,5 @@
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestTemplate;
 
 import java.awt.*;
 
@@ -47,6 +45,16 @@ class Volvo240Test {
 
         volvo.engineOn = false;
         assertFalse(volvo.getEngineOn());
+    }
+
+    @Test
+    public void throttleOutOfBounds() {
+        volvo.engineOn = true;
+        volvo.gas(1.5);
+        assertEquals(0, volvo.getCurrentSpeed());
+
+        volvo.gas(-0.5);
+        assertEquals(0, volvo.getCurrentSpeed());
     }
 
     @Test
