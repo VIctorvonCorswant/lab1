@@ -3,7 +3,7 @@ import java.awt.*;
 public class Scania implements Movable{
     /** Initiate variables */
     Truck truck;
-    private int bedAngle;
+    protected double bedAngle;
     private boolean turboOn;
 
     public int nrDoors;
@@ -27,9 +27,9 @@ public class Scania implements Movable{
     }
 
     /** Check if the engine is on */
-    protected boolean getEngineOn(){
-        return engineOn;
-    }
+    protected boolean getEngineOn(){return engineOn;}
+
+    private double getCurrentBedAngle() {return bedAngle;}
 
     /** Start the engine */
     protected void startEngine() {if (!this.engineOn) {this.engineOn = true;}}
@@ -40,8 +40,8 @@ public class Scania implements Movable{
     /** Accelerate by pressing the gas pedal the car */
     protected void gas(double amount){
         if (amount >= 0 && amount <= 1){
-            if(this.getCurrentSpeed() < this.getEnginePower()){
-                incrementSpeed(amount);
+            if(truck.getCurrentSpeed() < truck.getEnginePower() && getCurrentBedAngle() == 0){
+                truck.incrementSpeed(amount);
                 this.move();
             }
         }
@@ -51,13 +51,30 @@ public class Scania implements Movable{
     /** Decelerate by braking the car */
     public void brake(double amount){
         if (amount >= 0 && amount <= 1){
-            if(this.getCurrentSpeed() > 0){
-                decrementSpeed(amount);
+            if(truck.getCurrentSpeed() > 0){
+                truck.decrementSpeed(amount);
                 this.move();
 
             }
         }
         else {System.out.println("It's either through the floor or  (Brake is out of range.)");}
+    }
+
+    private double raiseBed(double amount){
+        if((this.getCurrentBedAngle() + amount) <= 70 && truck.getCurrentSpeed() == 0 && amount > 0){
+            bedAngle = getCurrentBedAngle() + amount;
+        }
+        return bedAngle;
+    }
+
+    /** RAHHHHHHHHHHHH */
+    private double lowerBed(double amount){
+        if((this.getCurrentBedAngle() - amount) >= 0 && amount > 0){
+            //we skip the check if we're moving, since it shouldn't happen anyways.
+            //and if we're moving we would like to lower the bed
+            bedAngle = getCurrentBedAngle() - amount;
+        }
+        return bedAngle;
     }
 
 
@@ -68,4 +85,12 @@ public class Scania implements Movable{
 
     public void setTurboOff(){turboOn = false;}
 
+    @Override
+    public void move(){}
+
+    @Override
+    public void turnLeft(){}
+
+    @Override
+    public void turnRight(){}
 }
