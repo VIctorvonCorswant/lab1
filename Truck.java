@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public abstract class Truck {
+public abstract class Truck extends Car {
 
     private Car car;
 
@@ -13,7 +13,8 @@ public abstract class Truck {
     public void decrementSpeed(double amount){car.decrementSpeed(amount);}
 
     protected Truck(Color color, Double enginePower, int nrDoors, String modelName) {
-        car = new Car();
+        super();
+        //car = new Car();
         car.currentSpeed = 0;
         car.color = color;
         car.enginePower = enginePower;
@@ -23,10 +24,10 @@ public abstract class Truck {
         car.modelName = modelName;
         car.engineOn = false;
     }
+    /*
+    protected int getNrDoors(){return super.getNrDoors();}
 
-    protected int getNrDoors(){return car.getNrDoors();}
-
-    protected Color getColor(){return car.getColor();}
-
-    public String getModelName(){return car.getModelName();}
+    protected Color getColor(){return super.getColor();}
+    */
+    public String getModelName(){return super.getModelName();}
 }
