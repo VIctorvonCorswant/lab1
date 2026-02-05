@@ -13,18 +13,13 @@ public class Scania implements Movable{
     /** Scania constructor */
     private Scania() {
         truck = new Truck(Color.blue, 280.0, 2, "Scania");
-
     }
 
     /** Get the number of doors a car has */
-    public int getNrDoors(){
-        return nrDoors;
-    }
+    public int getNrDoors(){return nrDoors;}
 
     /** Get the model name of a car */
-    public String getModelName(){
-        return modelName;
-    }
+    public String getModelName(){return modelName;}
 
     /** Check if the engine is on */
     protected boolean getEngineOn(){return engineOn;}
@@ -54,7 +49,6 @@ public class Scania implements Movable{
             if(truck.getCurrentSpeed() > 0){
                 truck.decrementSpeed(amount);
                 this.move();
-
             }
         }
         else {System.out.println("It's either through the floor or  (Brake is out of range.)");}
