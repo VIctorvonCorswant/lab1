@@ -72,7 +72,7 @@ public class Scania implements Movable{
     }
 
 
-    /** turbo get/set methods for saab */
+    /** turbo get/set methods from saab, because the scania has a turbo */
     public boolean getTurboOn(){return turboOn;}
 
     public void setTurboOn(){turboOn = true;}

@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Truck {
+public abstract class Truck {
 
     private Car car;
 
@@ -29,5 +29,4 @@ public class Truck {
     protected Color getColor(){return car.getColor();}
 
     public String getModelName(){return car.getModelName();}
-    }
 }
