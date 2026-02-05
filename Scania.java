@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Scania implements Movable{
+public class Scania extends Truck implements Movable{
     /** Initiate variables */
     Truck truck;
     protected double bedAngle;
@@ -11,9 +11,7 @@ public class Scania implements Movable{
     public boolean engineOn = false;
 
     /** Scania constructor */
-    private Scania() {
-        truck = new Truck(Color.blue, 280.0, 2, "Scania");
-    }
+    protected Scania() {super (Color.blue, 280.0, 2, "Scania");}
 
     /** Get the number of doors a car has */
     public int getNrDoors(){return nrDoors;}
@@ -44,7 +42,7 @@ public class Scania implements Movable{
     }
 
     /** Decelerate by braking the car */
-    public void brake(double amount){
+    protected void brake(double amount){
         if (amount >= 0 && amount <= 1){
             if(truck.getCurrentSpeed() > 0){
                 truck.decrementSpeed(amount);
@@ -54,21 +52,19 @@ public class Scania implements Movable{
         else {System.out.println("It's either through the floor or  (Brake is out of range.)");}
     }
 
-    private double raiseBed(double amount){
+    public void raiseBed(double amount){
         if((this.getCurrentBedAngle() + amount) <= 70 && truck.getCurrentSpeed() == 0 && amount > 0){
             bedAngle = getCurrentBedAngle() + amount;
         }
-        return bedAngle;
     }
 
     /** RAHHHHHHHHHHHH */
-    private double lowerBed(double amount){
+    public void lowerBed(double amount){
         if((this.getCurrentBedAngle() - amount) >= 0 && amount > 0){
-            //we skip the check if we're moving, since it shouldn't happen anyways.
-            //and if we're moving we would like to lower the bed
+            //We skip the moving-check, since it shouldn't occur,
+            //and if we're moving want to lower the bed
             bedAngle = getCurrentBedAngle() - amount;
         }
-        return bedAngle;
     }
 
 
