@@ -2,7 +2,7 @@ import java.awt.*;
 
 public abstract class Truck extends Car {
 
-    private Car car;
+    private final Car car;
 
     public double getCurrentSpeed(){return car.getCurrentSpeed();}
 
@@ -17,7 +17,7 @@ public abstract class Truck extends Car {
         car = new Car() {
             @Override
             protected double speedFactor() {
-                return 1;
+                return enginePower*0.01;
             }
         };
         car.currentSpeed = 0;
@@ -29,10 +29,6 @@ public abstract class Truck extends Car {
         car.modelName = modelName;
         car.engineOn = false;
     }
-    /*
-    protected int getNrDoors(){return super.getNrDoors();}
 
-    protected Color getColor(){return super.getColor();}
-    */
     public String getModelName(){return super.getModelName();}
 }
