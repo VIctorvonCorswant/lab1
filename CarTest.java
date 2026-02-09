@@ -83,4 +83,20 @@ class CarTest {
         double expectedSpeedFactor = 100 * 0.01 * 1.25;
         assertEquals(expectedSpeedFactor, kraschIT2.speedFactor(), 0.0001);
     }
+
+    /** Checks if car cannot move when engine is off */
+    @Test
+    public void cannotMoveWhenEngineOff() {
+        kraschIT2.engineOn = false;
+        kraschIT2.incrementSpeed(1);
+        assertEquals(0, kraschIT2.getCurrentSpeed());
+    }
+
+    /** Checks if car speed does not exceed maximum speed */
+    @Test
+    public void doesNotExceedMaxSpeed() {
+        kraschIT2.engineOn = true;
+        kraschIT2.incrementSpeed(1000);
+        assertEquals(kraschIT2.getEnginePower(), kraschIT2.getCurrentSpeed(), 0.0001);
+    }
 }

@@ -39,6 +39,8 @@ public class VolvoFH16 extends Truck implements Movable {
     /** Load car to trailer */
     public boolean loadCar(Car car){
         if(trailer.size() < trailerSize && getCurrentSpeed() == 0 && !trailerUp){
+            if (car instanceof Truck) return false; // Prevent loading trucks onto the trailer
+            if (this.getGeoDistance(car, this) > 5) return false; // Prevent loading cars that are too far away
             trailer.add(car);
             return true;
         }
@@ -48,8 +50,12 @@ public class VolvoFH16 extends Truck implements Movable {
      /** Unload car from trailer */
     public Car unloadCar(){
         if(!trailer.isEmpty() && getCurrentSpeed() == 0 && !trailerUp){
-            return trailer.remove(trailer.size() - 1);
-            //return trailer.removeLast();
+            Car car = trailer.remove(trailer.size() - 1);
+            // Unload the car behind the truck, based on the current direction of the truck
+            car.direction = (this.direction + Math.toRadians(180)) %  (2*Math.PI);
+            car.forceMove(5);
+            //car.coordinates = new Point(this.coordinates.x, this.coordinates.y);
+            return car;
         }
         return null;
     }
@@ -66,5 +72,36 @@ public class VolvoFH16 extends Truck implements Movable {
         double turbo = 1;
         if(turboOn) turbo = 1.3;
         return enginePower * 0.01 * turbo;
+    }
+
+    @Override
+    public void move(){
+        if(trailerUp) {
+            super.move();
+            // Move all cars on the trailer with the truck
+            for (Car car : trailer) {
+                car.coordinates = new Point(this.coordinates.x, this.coordinates.y);
+            }
+        }
+    }
+
+    public void turnLeft(){
+        if(trailerUp) {
+            super.turnLeft();
+            // Turn all cars on the trailer with the truck
+            for (Car car : trailer) {
+                car.direction = this.direction;
+            }
+        }
+    }
+
+    public void turnRight(){
+        if(trailerUp) {
+            super.turnRight();
+            // Turn all cars on the trailer with the truck
+            for (Car car : trailer) {
+                car.direction = this.direction;
+            }
+        }
     }
 }

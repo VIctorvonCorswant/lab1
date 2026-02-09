@@ -16,10 +16,10 @@ public abstract class Vehicle {
     public Color getColor() {return color;}
 
     /** Set a new color for the vehicle */
-    public void setColor(Color clr){color = clr;}
+    protected void setColor(Color clr){color = clr;}
 
     /** Calculate the speed factor of the vehicle */
-    public double speedFactor(double enginePower) {return enginePower * 0.01;}
+    protected double speedFactor(double enginePower) {return enginePower * 0.01;}
 
     /** Increase the speed of the vehicle */
     protected void incrementSpeed(double amount){currentSpeed = getCurrentSpeed() + (speedFactor(enginePower) * amount);}
@@ -34,6 +34,19 @@ public abstract class Vehicle {
     public void move(){
         coordinates.x += (int) (Math.cos(direction) * getCurrentSpeed());
         coordinates.y += (int) (Math.sin(direction) * getCurrentSpeed());
+    }
+
+    /** Force move the vehicle forward by a certain distance */
+    protected void forceMove(double distance){
+        coordinates.x += (int) (Math.cos(direction) * distance);
+        coordinates.y += (int) (Math.sin(direction) * distance);
+    }
+
+    /** Calculate the distance between two vehicles */
+    public double getGeoDistance(Vehicle v1, Vehicle v2){
+        double distX = Math.abs(v1.coordinates.getX() - v2.coordinates.getX());
+        double distY = Math.abs(v1.coordinates.getY() - v2.coordinates.getY());
+        return Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2));
     }
 
     /** Rotate the vehicle left via adding 30° */

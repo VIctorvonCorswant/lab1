@@ -42,4 +42,11 @@ class Saab95Test {
         double expectedSpeedFactorOn = 125 * 0.01 * 1.3;
         assertEquals(expectedSpeedFactorOn, saab95.speedFactor(), 0.0001);
     }
+
+    @Test
+    void cannotGasWhenEngineOff() {
+        saab95.setTurboOn();
+        saab95.gas(0.5);
+        assertEquals(0, saab95.getCurrentSpeed(), 0.0001);
+    }
 }

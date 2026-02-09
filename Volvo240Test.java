@@ -61,4 +61,12 @@ class Volvo240Test {
         for(int i=0; i<300; i++) {volvo.brake(1);}
         assertEquals(0, volvo.getCurrentSpeed());
     }
+
+    /** Checks if car cannot gas when engine is off */
+    @Test
+    public void cannotGasWhenEngineOff() {
+        volvo.engineOn = false;
+        volvo.gas(0.5);
+        assertEquals(0, volvo.getCurrentSpeed(), 0.0001);
+    }
 }

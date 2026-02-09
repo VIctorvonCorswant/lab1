@@ -98,4 +98,19 @@ class VehicleTest {
         kraschIT.turnRight();
         assertEquals(-Math.toRadians(30), kraschIT.direction, 0.0001);
     }
+
+    /** Checks if decrement speed does not go below zero */
+    @Test
+    void decrementSpeedDoesNotGoBelowZero() {
+        kraschIT.decrementSpeed(100);
+        assertEquals(0, kraschIT.getCurrentSpeed(), 0.0001);
+    }
+
+    /** Checks if gas input outside valid range is ignored */
+    @Test
+    void gasInputOutOfRange() {
+        kraschIT.engineOn = true;
+        kraschIT.gas(1.5);
+        assertEquals(0, kraschIT.getCurrentSpeed(), 0.0001);
+    }
 }

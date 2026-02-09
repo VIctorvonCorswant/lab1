@@ -14,7 +14,12 @@ public abstract class Truck extends Car {
 
     protected Truck(Color color, Double enginePower, int nrDoors, String modelName) {
         super();
-        //car = new Car();
+        car = new Car() {
+            @Override
+            protected double speedFactor() {
+                return 1;
+            }
+        };
         car.currentSpeed = 0;
         car.color = color;
         car.enginePower = enginePower;
