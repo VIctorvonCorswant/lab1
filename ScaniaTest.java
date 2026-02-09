@@ -24,8 +24,9 @@ class ScaniaTest {
 
     @Test
     public void noRaiseBedWhilstMoving(){
+        scania.engineOn = true;
         scania.gas(1);
-        scania.raiseBed((69));
+        scania.raiseBed((55));
         assertEquals(0, scania.getBedAngle());
     }
 

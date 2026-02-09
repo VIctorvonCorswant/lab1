@@ -31,7 +31,7 @@ public abstract class Car extends Vehicle {
     public void gas(double amount){
         if (amount >= 0 && amount <= 1){
             if(this.getCurrentSpeed() < this.getEnginePower()){
-                incrementSpeed(amount);
+                incrementSpeed(amount, this.engineOn);
                 this.move();
             }
         }
@@ -42,7 +42,7 @@ public abstract class Car extends Vehicle {
     public void brake(double amount){
         if (amount >= 0 && amount <= 1){
             if(this.getCurrentSpeed() > 0){
-                decrementSpeed(amount);
+                decrementSpeed(amount, this.engineOn);
                 this.move();
 
             }

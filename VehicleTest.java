@@ -40,18 +40,24 @@ class VehicleTest {
     /** Checks if increment speed works correctly */
     @Test
     void incrementSpeed() {
+        kraschIT.engineOn = true;
         double speed = kraschIT.getCurrentSpeed();
-        kraschIT.incrementSpeed(1);
+        kraschIT.incrementSpeed(1, kraschIT.getEngineOn());
         assertEquals(speed + kraschIT.speedFactor(kraschIT.getEnginePower()), kraschIT.getCurrentSpeed(), 0.0001);
     }
 
     /** Checks if decrement speed works correctly */
     @Test
     void decrementSpeed() {
-        kraschIT.incrementSpeed(1); // First increase speed to avoid negative speed
+        kraschIT.engineOn = true;
+        kraschIT.incrementSpeed(2, kraschIT.getEngineOn()); // First increase speed to avoid negative speed
         double speed = kraschIT.getCurrentSpeed();
-        kraschIT.decrementSpeed(1);
+        kraschIT.decrementSpeed(1, kraschIT.getEngineOn());
         assertEquals(speed - kraschIT.speedFactor(kraschIT.getEnginePower()), kraschIT.getCurrentSpeed(), 0.0001);
+
+        //Test for negative speed
+        kraschIT.decrementSpeed(3, kraschIT.getEngineOn());
+        assertEquals(0, kraschIT.getCurrentSpeed(), 0.0001);
     }
 
     /** Checks if engine power is correct */
@@ -102,7 +108,7 @@ class VehicleTest {
     /** Checks if decrement speed does not go below zero */
     @Test
     void decrementSpeedDoesNotGoBelowZero() {
-        kraschIT.decrementSpeed(100);
+        kraschIT.decrementSpeed(100, kraschIT.getEngineOn());
         assertEquals(0, kraschIT.getCurrentSpeed(), 0.0001);
     }
 

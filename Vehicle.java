@@ -22,10 +22,18 @@ public abstract class Vehicle {
     protected double speedFactor(double enginePower) {return enginePower * 0.01;}
 
     /** Increase the speed of the vehicle */
-    protected void incrementSpeed(double amount){currentSpeed = getCurrentSpeed() + (speedFactor(enginePower) * amount);}
+    protected void incrementSpeed(double amount, boolean engineOn){
+        if (amount < 0 || !engineOn)
+            return;
+        currentSpeed = Math.min(getCurrentSpeed() + (speedFactor(enginePower) * amount), enginePower);
+    }
 
     /** Decrease the speed of the vehicle */
-    protected void decrementSpeed(double amount){currentSpeed = getCurrentSpeed() - (speedFactor(enginePower) * amount);}
+    protected void decrementSpeed(double amount, boolean engineOn){
+        if (amount < 0 || !engineOn)
+            return;
+        currentSpeed = Math.max(getCurrentSpeed() - (speedFactor(enginePower) * amount), 0);
+    }
 
     /** Get engine power */
     public double getEnginePower(){return this.enginePower;}

@@ -88,7 +88,7 @@ class CarTest {
     @Test
     public void cannotMoveWhenEngineOff() {
         kraschIT2.engineOn = false;
-        kraschIT2.incrementSpeed(1);
+        kraschIT2.incrementSpeed(1, kraschIT2.getEngineOn());
         assertEquals(0, kraschIT2.getCurrentSpeed());
     }
 
@@ -96,7 +96,7 @@ class CarTest {
     @Test
     public void doesNotExceedMaxSpeed() {
         kraschIT2.engineOn = true;
-        kraschIT2.incrementSpeed(1000);
+        kraschIT2.incrementSpeed(1000, kraschIT2.getEngineOn());
         assertEquals(kraschIT2.getEnginePower(), kraschIT2.getCurrentSpeed(), 0.0001);
     }
 }

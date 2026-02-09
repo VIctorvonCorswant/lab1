@@ -14,6 +14,8 @@ public class Scania extends Truck implements Movable{
 
     /** Lower the bed */
     public void raiseBed(double amount){
+        if(amount < 0) return; // Prevent negative input
+        if (this.getCurrentSpeed() > 0) return;
         if(this.getBedAngle() + amount >= 70){
             bedAngle = 70;
         }
@@ -37,7 +39,7 @@ public class Scania extends Truck implements Movable{
     public void gas(double amount) {
         if (amount >= 0 && amount <= 1){
             if(this.getCurrentSpeed() < this.getEnginePower() && this.getBedAngle() == 0) {
-                incrementSpeed(amount);
+                incrementSpeed(amount, this.engineOn);
                 this.move();
             }
         }

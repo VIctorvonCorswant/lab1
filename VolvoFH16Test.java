@@ -32,8 +32,8 @@ class VolvoFH16Test {
     public void loadCar() {
         fh16.lowerTrailer(true);
         Volvo240 bil1 = new Volvo240(Color.green, 180.0);
-        Volvo240 bil2 = new Volvo240(Color.green, 180.0);
-        Volvo240 bil3 = new Volvo240(Color.green, 180.0);
+        Volvo240 bil2 = new Volvo240(Color.yellow, 180.0);
+        Volvo240 bil3 = new Volvo240(Color.blue, 180.0);
         fh16.loadCar(bil1);
 
     }
