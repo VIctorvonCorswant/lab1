@@ -14,25 +14,35 @@ public class Scania extends Truck implements Movable{
 
     /** Lower the bed */
     public void raiseBed(double amount){
-        if((this.getBedAngle() + amount) <= 70 && super.getCurrentSpeed() == 0 && amount > 0){
+        if(this.getBedAngle() + amount >= 70){
+            bedAngle = 70;
+        }
+        else if((this.getBedAngle() + amount) > 0 && super.getCurrentSpeed() == 0 && amount > 0){
             bedAngle = getBedAngle() + amount;
         }
     }
 
     /** Lower the bed */
     public void lowerBed(double amount){
-        if((this.getBedAngle() - amount) >= 0 && amount > 0){
+        if(this.getBedAngle() - amount <= 0){
             //We skip the moving-check, since it shouldn't occur,
             //and if we're moving want to lower the bed
+            bedAngle = 0;
+        }
+        else if((this.getBedAngle() - amount) >= 0 && amount > 0){
             bedAngle = getBedAngle() - amount;
         }
     }
 
-//    public void gas(int amount) {
-//        if (amount < 0 || amount > 100) throw new IllegalArgumentException("amount must be 0-100");
-//        if (bedAngle > 0) return; // cannot accelerate while bed is raised
-//        currentSpeed = Math.min(enginePower, currentSpeed + amount / 100.0 * enginePower * 0.01);
-//    }
+    public void gas(double amount) {
+        if (amount >= 0 && amount <= 1){
+            if(this.getCurrentSpeed() < this.getEnginePower() && this.getBedAngle() == 0) {
+                incrementSpeed(amount);
+                this.move();
+            }
+        }
+        else {System.out.println("Throttle out of range or bed is raised");}
+    }
 
     /** turbo get/set methods from saab, because the scania has a turbo */
     public boolean getTurboOn(){return turboOn;}
