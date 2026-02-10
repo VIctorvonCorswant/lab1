@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Scania extends Truck implements Movable{
+public class Scania extends Truck<Scania> implements Movable{
     /** Initiate variables */
     private double bedAngle = 0.0;
     private boolean turboOn;

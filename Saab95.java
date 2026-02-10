@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public final class Saab95 extends Car implements Movable {
+public final class Saab95 extends Car<Saab95> implements Movable {
     /** Initiate variables */
     private boolean turboOn;
 
