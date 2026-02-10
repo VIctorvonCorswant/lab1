@@ -8,18 +8,20 @@ public class Scania extends Truck implements Movable{
     /** Scania constructor */
     protected Scania(Color color, double EnginePower, int nrDoors, String modelName) {
          super(color, EnginePower, nrDoors, modelName);
+         this.trailerSafe = true; // The trailer is safe to drive with by default
     }
 
     public double getBedAngle() {return bedAngle;}
 
     /** Lower the bed */
     public void raiseBed(double amount){
-        if(amount < 0) return; // Prevent negative input
+        if(amount <= 0) return; // Prevent negative input
         if (this.getCurrentSpeed() > 0) return;
+        this.trailerSafe = false; // The trailer is not safe to drive with when the bed is raised
         if(this.getBedAngle() + amount >= 70){
             bedAngle = 70;
         }
-        else if((this.getBedAngle() + amount) > 0 && super.getCurrentSpeed() == 0 && amount > 0){
+        else if((this.getBedAngle() + amount) > 0 && this.getCurrentSpeed() == 0 && amount > 0){
             bedAngle = getBedAngle() + amount;
         }
     }
@@ -30,20 +32,11 @@ public class Scania extends Truck implements Movable{
             //We skip the moving-check, since it shouldn't occur,
             //and if we're moving want to lower the bed
             bedAngle = 0;
+            this.trailerSafe = true; // The trailer is safe to drive with when the bed is fully lowered
         }
         else if((this.getBedAngle() - amount) >= 0 && amount > 0){
             bedAngle = getBedAngle() - amount;
         }
-    }
-
-    public void gas(double amount) {
-        if (amount >= 0 && amount <= 1){
-            if(this.getCurrentSpeed() < this.getEnginePower() && this.getBedAngle() == 0) {
-                incrementSpeed(amount, this.engineOn);
-                this.move();
-            }
-        }
-        else {System.out.println("Throttle out of range or bed is raised");}
     }
 
     /** turbo get/set methods from saab, because the scania has a turbo */

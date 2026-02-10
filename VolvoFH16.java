@@ -5,8 +5,6 @@ import java.util.ArrayList;
 public class VolvoFH16 extends Truck implements Movable {
 
     /** Initiate variables */
-    Truck truck;
-    protected boolean trailerUp = true;
     private boolean turboOn;
     List<Car> trailer = new ArrayList<>();
     private int trailerSize = 3;
@@ -16,40 +14,41 @@ public class VolvoFH16 extends Truck implements Movable {
     public VolvoFH16(Color color, double EnginePower, int nrDoors, int trailerSize, String modelName) {
         super(color, EnginePower, nrDoors, modelName);
         this.trailerSize = trailerSize;
+        this.trailerSafe = true; // The trailer is safe to drive with by default
     }
 
-    /** Raise the trailer */
-    public boolean raiseTrailer(boolean raise){
-        if(!trailerUp && getCurrentSpeed() == 0 && raise){
-            trailerUp = true;
-            return true;
+    /**
+     * Raise the trailer
+     */
+    public void raiseTrailer(boolean raise){
+        if(!this.trailerSafe && getCurrentSpeed() == 0 && raise){
+            this.trailerSafe=true;
         }
-        return false;
     }
 
-    /** Lower the trailer */
-    public boolean lowerTrailer(boolean lower) {
-        if (trailerUp && getCurrentSpeed() == 0 && lower) {
-            trailerUp = false;
-            return true;
+    /**
+     * Lower the trailer
+     */
+    public void lowerTrailer(boolean lower) {
+        if (this.trailerSafe && getCurrentSpeed() == 0 && lower) {
+            this.trailerSafe = false;
         }
-        return false;
     }
 
-    /** Load car to trailer */
-    public boolean loadCar(Car car){
-        if(trailer.size() < trailerSize && getCurrentSpeed() == 0 && !trailerUp){
-            if (car instanceof Truck) return false; // Prevent loading trucks onto the trailer
-            if (this.getGeoDistance(car, this) > 5) return false; // Prevent loading cars that are too far away
+    /**
+     * Load car to trailer
+     */
+    public void loadCar(Car car){
+        if(trailer.size() < trailerSize && getCurrentSpeed() == 0 && !this.trailerSafe){
+            if (car instanceof Truck) return; // Prevent loading trucks onto the trailer
+            if (this.getGeoDistance(car, this) > 5) return; // Prevent loading cars that are too far away
             trailer.add(car);
-            return true;
         }
-        return false;
     }
 
      /** Unload car from trailer */
     public Car unloadCar(){
-        if(!trailer.isEmpty() && getCurrentSpeed() == 0 && !trailerUp){
+        if(!trailer.isEmpty() && getCurrentSpeed() == 0 && !this.trailerSafe){
             Car car = trailer.remove(trailer.size() - 1);
             // Unload the car behind the truck, based on the current direction of the truck
             car.direction = (this.direction + Math.toRadians(180)) %  (2*Math.PI);
@@ -76,7 +75,7 @@ public class VolvoFH16 extends Truck implements Movable {
 
     @Override
     public void move(){
-        if(trailerUp) {
+        if(this.trailerSafe) {
             super.move();
             // Move all cars on the trailer with the truck
             for (Car car : trailer) {
@@ -86,7 +85,7 @@ public class VolvoFH16 extends Truck implements Movable {
     }
 
     public void turnLeft(){
-        if(trailerUp) {
+        if(this.trailerSafe) {
             super.turnLeft();
             // Turn all cars on the trailer with the truck
             for (Car car : trailer) {
@@ -96,7 +95,7 @@ public class VolvoFH16 extends Truck implements Movable {
     }
 
     public void turnRight(){
-        if(trailerUp) {
+        if(this.trailerSafe) {
             super.turnRight();
             // Turn all cars on the trailer with the truck
             for (Car car : trailer) {
