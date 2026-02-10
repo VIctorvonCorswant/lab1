@@ -7,7 +7,7 @@ public class VolvoFH16 extends Truck implements Movable {
     /** Initiate variables */
     private boolean turboOn;
     List<Car> trailer = new ArrayList<>();
-    private int trailerSize = 3;
+    protected int trailerSize = 3;
     public boolean engineOn = false;
 
     /** Initialize the constructor */
@@ -17,27 +17,21 @@ public class VolvoFH16 extends Truck implements Movable {
         this.trailerSafe = true; // The trailer is safe to drive with by default
     }
 
-    /**
-     * Raise the trailer
-     */
+    /** Raise the trailer */
     public void raiseTrailer(boolean raise){
         if(!this.trailerSafe && getCurrentSpeed() == 0 && raise){
             this.trailerSafe=true;
         }
     }
 
-    /**
-     * Lower the trailer
-     */
+    /** Lower the trailer */
     public void lowerTrailer(boolean lower) {
         if (this.trailerSafe && getCurrentSpeed() == 0 && lower) {
             this.trailerSafe = false;
         }
     }
 
-    /**
-     * Load car to trailer
-     */
+    /** Load car to trailer */
     public void loadCar(Car car){
         if(trailer.size() < trailerSize && getCurrentSpeed() == 0 && !this.trailerSafe){
             if (car instanceof Truck) return; // Prevent loading trucks onto the trailer
@@ -46,10 +40,11 @@ public class VolvoFH16 extends Truck implements Movable {
         }
     }
 
+
      /** Unload car from trailer */
     public Car unloadCar(){
         if(!trailer.isEmpty() && getCurrentSpeed() == 0 && !this.trailerSafe){
-            Car car = trailer.remove(trailer.size() - 1);
+            Car car = trailer.removeLast();
             // Unload the car behind the truck, based on the current direction of the truck
             car.direction = (this.direction + Math.toRadians(180)) %  (2*Math.PI);
             car.forceMove(5);
