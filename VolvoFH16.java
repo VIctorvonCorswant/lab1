@@ -18,26 +18,28 @@ public class VolvoFH16 extends Truck implements Movable {
     }
 
     /** Raise the trailer */
-    public void raiseTrailer(boolean raise){
-        if(!this.trailerSafe && getCurrentSpeed() == 0 && raise){
+    public void raiseTrailer(){
+        if(!this.trailerSafe && getCurrentSpeed() == 0){
             this.trailerSafe=true;
         }
     }
 
     /** Lower the trailer */
-    public void lowerTrailer(boolean lower) {
-        if (this.trailerSafe && getCurrentSpeed() == 0 && lower) {
+    public void lowerTrailer() {
+        if (this.trailerSafe && getCurrentSpeed() == 0) {
             this.trailerSafe = false;
         }
     }
 
     /** Load car to trailer */
-    public void loadCar(Car car){
+    public Car loadCar(Car car){
         if(trailer.size() < trailerSize && getCurrentSpeed() == 0 && !this.trailerSafe){
-            if (car instanceof Truck) return; // Prevent loading trucks onto the trailer
-            if (this.getGeoDistance(car, this) > 5) return; // Prevent loading cars that are too far away
+            if (car instanceof Truck) return car; // Prevent loading trucks onto the trailer
+            if (this.getGeoDistance(car, this) > 5) return car; // Prevent loading cars that are too far away
             trailer.add(car);
+            return null;
         }
+        return car;
     }
 
 
