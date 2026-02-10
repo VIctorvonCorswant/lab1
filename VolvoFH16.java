@@ -31,6 +31,8 @@ public class VolvoFH16 extends Truck implements Movable {
         }
     }
 
+    public List<Car> getTrailer() {return trailer;}
+
     /** Load car to trailer */
     public Car loadCar(Car car){
         if(trailer.size() < trailerSize && getCurrentSpeed() == 0 && !this.trailerSafe){
@@ -76,7 +78,7 @@ public class VolvoFH16 extends Truck implements Movable {
             super.move();
             // Move all cars on the trailer with the truck
             for (Car car : trailer) {
-                car.coordinates = new Point(this.coordinates.x, this.coordinates.y);
+                car.coordinates = this.coordinates;
             }
         }
     }

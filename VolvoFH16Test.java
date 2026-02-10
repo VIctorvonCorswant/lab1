@@ -9,9 +9,13 @@ class VolvoFH16Test {
 
     private VolvoFH16 fh16;
 
-    /** Sets up a VolvoFH16 */
+    /**
+     * Sets up a VolvoFH16
+     */
     @BeforeEach
-    public void setUp() {fh16 = new VolvoFH16(Color.GRAY, 300.0, 2, 3, "FH16");}
+    public void setUp() {
+        fh16 = new VolvoFH16(Color.GRAY, 300.0, 2, 3, "FH16");
+    }
 
     /** Tests if trailer lowers */
     @Test
@@ -46,9 +50,9 @@ class VolvoFH16Test {
     }
 
     /** Tests both if cars can only be loaded when trailer is down
-     *  and if trucks can not be loaded */
+     * and if trucks can not be loaded */
     @Test
-    public void loadCarOnlyWhenTrailerDown(){
+    public void loadCarOnlyWhenTrailerDown() {
 
         Volvo240 bil1 = new Volvo240(Color.green, 180.0);
         Volvo240 bil2 = new Volvo240(Color.yellow, 180.0);
@@ -61,7 +65,7 @@ class VolvoFH16Test {
         assertEquals(1, fh16.trailer.size());
     }
 
-    /** Tests if it is the loaded car that gets unloaded */
+    /** Tests if it is the last loaded car that gets unloaded */
     @Test
     public void unloadLastCar() {
         Volvo240 bil1 = new Volvo240(Color.green, 180.0);
@@ -74,16 +78,47 @@ class VolvoFH16Test {
         fh16.lowerTrailer();
         fh16.unloadCar();
 
-        assertEquals(1, fh16.trailer.size()); //fel, ska kolla om specifikt bil1 är kvar
+        assertEquals(1, fh16.trailer.size());
+        assertEquals(new ArrayList<Car>(Collections.singleton(bil1)), fh16.getTrailer());
     }
 
-    /** Tests if you can gas when trailer is not safe (e.g trailer is lowered) */
+    /** Tests if you can gas when trailer is not safe (e.g. trailer is lowered) */
     @Test
-    public void gasNotWhenTrailerUnsafe(){
+    public void gasNotWhenTrailerUnsafe() {
         fh16.trailerSafe = false;
         fh16.lowerTrailer();
         fh16.gas(1);
 
         assertEquals(0, fh16.getCurrentSpeed());
+    }
+
+    /** Checks if the car only loads when it is close enough
+     * and unloads the car at a reasonable distance (5 units) */
+    @Test
+    public void loadingAndUnloadingDistance() {
+        Volvo240 bil1 = new Volvo240(Color.green, 180.0);
+        fh16.lowerTrailer();
+        bil1.forceMove(200.0);
+        fh16.loadCar(bil1);
+        assertEquals(0, fh16.trailer.size());
+
+        bil1.forceMove(-200.0);
+        fh16.loadCar(bil1);
+        fh16.unloadCar();
+        assertEquals(5, fh16.getGeoDistance(fh16, bil1));
+    }
+
+    /** Checks if the car's coordinates is the same as the truck it's loaded on */
+    @Test
+    public void carFollowsTruck() {
+        fh16.startEngine();
+        Volvo240 bil1 = new Volvo240(Color.green, 180.0);
+        fh16.lowerTrailer();
+        assertEquals(0, fh16.getGeoDistance(fh16, bil1));
+        fh16.loadCar(bil1);
+        fh16.raiseTrailer();
+        bil1.forceMove(300.0);
+        fh16.gas(1);
+        assertEquals(0, fh16.getGeoDistance(fh16, bil1));
     }
 }
