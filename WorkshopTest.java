@@ -8,12 +8,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WorkshopTest {
 
-    private Workshop workshop;
+    private Workshop<Volvo240> workshop;
+    private Workshop allWorkshop;
 
     @BeforeEach
     void setUp() {
         workshop = new Workshop<Volvo240>(2);
-
     }
 
     @Test
@@ -48,5 +48,28 @@ class WorkshopTest {
         workshop.addCarToWorkshop(car1);
         workshop.removeCarFromWorkshop(car1);
         assertFalse(workshop.getFacility().contains(car1));
+    }
+
+    @Test
+    void onlyAcceptSpecificVehicle() {
+        Volvo240 car1 = new Volvo240(Color.BLACK, 128.0);
+        Scania truck = new Scania(Color.BLUE, 300, 2, "Scania");
+
+        workshop.addCarToWorkshop(car1);
+        //workshop.addCarToWorkshop(truck); //It does not even compile.
+                                            //"Men att den säger ifrån är ett bevis att den fungerar" - Ballong.
+    }
+
+    @Test
+    void allAcceptingWorkshop() {
+        allWorkshop = new Workshop(2);
+
+        Volvo240 car1 = new Volvo240(Color.BLACK, 128.0);
+        Scania truck = new Scania(Color.BLUE, 300, 2, "Scania");
+
+        allWorkshop.addCarToWorkshop(car1);
+        allWorkshop.addCarToWorkshop(truck);
+
+        assertEquals(2, allWorkshop.facilitySize);
     }
 }
