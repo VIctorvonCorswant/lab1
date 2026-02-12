@@ -11,6 +11,7 @@ class WorkshopTest {
     private Workshop<Volvo240> workshop;
     private Workshop allWorkshop;
 
+    /** Sets up a normal Volvo240 specific Workshop*/
     @BeforeEach
     void setUp() {
         workshop = new Workshop<Volvo240>(2);
@@ -21,6 +22,7 @@ class WorkshopTest {
         assertNotNull(workshop.getFacility());
     }
 
+    /** Tests if you can add car to workshop*/
     @Test
     void addCarToWorkshop() {
         Volvo240 car1 = new Volvo240(Color.BLACK, 128.0);
@@ -31,6 +33,7 @@ class WorkshopTest {
         assertTrue(workshop.getFacility().contains(car2));
     }
 
+    /** Tests if you can add cars after the workshop is full */
     @Test
     void addCarToFullWorkshop() {
         Volvo240 car1 = new Volvo240(Color.BLACK, 128.0);
@@ -42,6 +45,7 @@ class WorkshopTest {
         assertFalse(workshop.getFacility().contains(car3));
     }
 
+    /** Tests if you can remove car from workshop */
     @Test
     void removeCarFromWorkshop() {
         Volvo240 car1 = new Volvo240(Color.BLACK, 128.0);
@@ -50,6 +54,7 @@ class WorkshopTest {
         assertFalse(workshop.getFacility().contains(car1));
     }
 
+    /** Proves in syntax code that you cannot add wrong vehicle type, static error */
     @Test
     void onlyAcceptSpecificVehicle() {
         Volvo240 car1 = new Volvo240(Color.BLACK, 128.0);
@@ -60,6 +65,7 @@ class WorkshopTest {
                                             //"Men att den säger ifrån är ett bevis att den fungerar" - Ballong.
     }
 
+    /** Tests if you can add any car to a "tag-less" workshop */
     @Test
     void allAcceptingWorkshop() {
         allWorkshop = new Workshop(2);
