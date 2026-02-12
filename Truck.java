@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public abstract class Truck<M extends Truck<M>> extends Car<M> {
+public abstract class Truck extends Car {
 
     protected boolean trailerSafe;
 

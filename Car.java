@@ -1,4 +1,4 @@
-public abstract class Car<M extends Car<M>> extends Vehicle {
+public abstract class Car extends Vehicle {
     // Initiate variables
     public int nrDoors;
     public String modelName;

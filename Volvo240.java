@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public final class Volvo240 extends Car<Volvo240> implements Movable{
+public final class Volvo240 extends Car implements Movable, Towable{
     /** Initiate variables */
     private final static double trimFactor = 1.25;
 

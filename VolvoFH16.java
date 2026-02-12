@@ -2,11 +2,11 @@ import java.awt.*;
 import java.util.List;
 import java.util.ArrayList;
 
-public class VolvoFH16 extends Truck<VolvoFH16> implements Movable {
+public class VolvoFH16 extends Truck implements Movable{
 
     /** Initiate variables */
     private boolean turboOn;
-    List<Car<?>> trailer = new ArrayList<>();
+    List<Car> trailer = new ArrayList<>();
     protected int trailerSize = 3;
     public boolean engineOn = false;
 
@@ -31,12 +31,11 @@ public class VolvoFH16 extends Truck<VolvoFH16> implements Movable {
         }
     }
 
-    public List<Car<?>> getTrailer() {return trailer;}
+    public List<Car> getTrailer() {return trailer;}
 
     /** Load car to trailer */
-    public Car<?> loadCar(Car<?> car){
+    public <T extends Car & Towable> T loadCar(T car){
         if(trailer.size() < trailerSize && getCurrentSpeed() == 0 && !this.trailerSafe){
-            if (car instanceof Truck) return car; // Prevent loading trucks onto the trailer
             if (this.getGeoDistance(car, this) > 5) return car; // Prevent loading cars that are too far away
             trailer.add(car);
             return null;
@@ -46,9 +45,9 @@ public class VolvoFH16 extends Truck<VolvoFH16> implements Movable {
 
 
      /** Unload car from trailer */
-    public Car<?> unloadCar(){
+    public Car unloadCar(){
         if(!trailer.isEmpty() && getCurrentSpeed() == 0 && !this.trailerSafe){
-            Car<?> car = trailer.remove(trailer.size() - 1);
+            Car car = trailer.remove(trailer.size() - 1);
             // Unload the car behind the truck, based on the current direction of the truck
             car.direction = (this.direction + Math.toRadians(180)) %  (2*Math.PI);
             car.forceMove(5);
@@ -77,7 +76,7 @@ public class VolvoFH16 extends Truck<VolvoFH16> implements Movable {
         if(this.trailerSafe) {
             super.move();
             // Move all cars on the trailer with the truck
-            for (Car<?> car : trailer) {
+            for (Car car : trailer) {
                 car.coordinates = this.coordinates;
             }
         }
@@ -87,7 +86,7 @@ public class VolvoFH16 extends Truck<VolvoFH16> implements Movable {
         if(this.trailerSafe) {
             super.turnLeft();
             // Turn all cars on the trailer with the truck
-            for (Car<?> car : trailer) {
+            for (Car car : trailer) {
                 car.direction = this.direction;
             }
         }
@@ -97,7 +96,7 @@ public class VolvoFH16 extends Truck<VolvoFH16> implements Movable {
         if(this.trailerSafe) {
             super.turnRight();
             // Turn all cars on the trailer with the truck
-            for (Car<?> car : trailer) {
+            for (Car car : trailer) {
                 car.direction = this.direction;
             }
         }

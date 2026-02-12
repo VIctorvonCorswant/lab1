@@ -1,6 +1,7 @@
 import java.awt.*;
 
-public class Scania extends Truck<Scania> implements Movable{
+// Yes the Scania is towable (https://www.agg-net.com/sites/default/files/styles/large_compact_teaser/public/images/news/volvo_fh16.jpg?h=bb31b4aa&itok=WxqahyC0)
+public class Scania extends Truck implements Movable, Towable{
     /** Initiate variables */
     private double bedAngle = 0.0;
     private boolean turboOn;

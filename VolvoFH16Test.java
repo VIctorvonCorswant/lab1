@@ -2,6 +2,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -56,13 +58,15 @@ class VolvoFH16Test {
 
         Volvo240 bil1 = new Volvo240(Color.green, 180.0);
         Volvo240 bil2 = new Volvo240(Color.yellow, 180.0);
-        VolvoFH16 lastbil = new VolvoFH16(Color.blue, 300.0, 2, 1, "lastbil");
+        Scania lastbil = new Scania(Color.red, 280.0, 2, "lastbil");
+        VolvoFH16 lastbil1 = new VolvoFH16(Color.blue, 300.0, 2, 1, "lastbil1");
         fh16.loadCar(bil1);
         fh16.lowerTrailer();
         fh16.loadCar(bil2);
         fh16.loadCar(lastbil);
+        // fh16.loadCar(lastbil1); // This line is commented out because it would cause an error
 
-        assertEquals(1, fh16.trailer.size());
+        assertEquals(2, fh16.trailer.size());
     }
 
     /** Tests if it is the last loaded car that gets unloaded */
